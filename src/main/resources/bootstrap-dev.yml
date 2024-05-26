@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: nacos-svc.dev.svc.cluster.local:8848
+        username: admin
+        password: "uze6rvz*ztr7WQD!ygp"
+#      discovery:
+#        server-addr: ${spring.cloud.nacos.config.server-addr}
+#        username: nacos
+#        password: "Iweng.me2295"
+

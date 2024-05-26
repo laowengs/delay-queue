@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: kafka-delay-queue
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        enabled: true
+        namespace: ${spring.profiles.active}
+        group: ${spring.application.name}
+        file-extension: properties
+        max-retry: 10
+        config-retry-time: 6000
+        config-long-poll-timeout: 6000
+#        extension-configs:
+#          - data-id: application
+#            group: ${spring.application.name}
+#            refresh: true
+        shared-configs:
+          - data-id: application
+            group: ${spring.application.name}
+            refresh: true
+          - data-id: dubbo
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: logging
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: redis
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: xxl_job
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: mysql
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: kafka
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: zookeeper
+            group: DEFAULT_GROUP
+            refresh: true
