@@ -8,10 +8,10 @@ import org.springframework.kafka.annotation.EnableKafka;
 @SpringBootApplication
 @EnableKafka
 @MapperScan({"io.github.laowengs.kafka.delay.queue"})
-public class KafkaDelayQueueApplication {
+public class KafkaDelayQueueManagerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KafkaDelayQueueApplication.class, args);
+        SpringApplication.run(KafkaDelayQueueManagerApplication.class, args);
     }
 
 }
