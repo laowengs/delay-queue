@@ -1,4 +1,4 @@
-package io.github.laowengs.delay.queue.manager;
+package io.github.laowengs.delay.queue.service;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,11 +7,11 @@ import org.springframework.kafka.annotation.EnableKafka;
 
 @SpringBootApplication
 @EnableKafka
-@MapperScan({"io.github.laowengs.kafka.delay.queue"})
-public class KafkaDelayQueueApplication {
+@MapperScan({"io.github.laowengs.delay.queue.service"})
+public class DelayQueueServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KafkaDelayQueueApplication.class, args);
+        SpringApplication.run(DelayQueueServiceApplication.class, args);
     }
 
 }
