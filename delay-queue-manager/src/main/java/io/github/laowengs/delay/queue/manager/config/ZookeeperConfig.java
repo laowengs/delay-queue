@@ -1,4 +1,4 @@
-package io.github.laowengs.kafka.delay.queue.config;
+package io.github.laowengs.delay.queue.manager.config;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

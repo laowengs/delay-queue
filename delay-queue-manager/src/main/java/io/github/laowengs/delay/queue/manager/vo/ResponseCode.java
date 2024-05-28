@@ -1,4 +1,4 @@
-package io.github.laowengs.kafka.delay.queue.vo;
+package io.github.laowengs.delay.queue.manager.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package io.github.laowengs.kafka.delay.queue.ro;
+package io.github.laowengs.delay.queue.manager.ro;
 
 import lombok.Data;
 
