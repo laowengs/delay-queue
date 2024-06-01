@@ -10,19 +10,19 @@ import org.springframework.stereotype.Component;
 public class DelayQueueCuratorCacheListener implements CuratorCacheListener {
     @Override
     public void event(Type type, ChildData oldData, ChildData data) {
-        String path = oldData.getPath();
-        log.info("receive watch type {} for path {}",type,path);
-        switch (type){
-            case NODE_CHANGED:
-
-                break;
-            case NODE_CREATED:
-                break;
-            case NODE_DELETED:
-                break;
-            default:
-                break;
-        }
+//        String path = oldData.getPath();
+//        log.info("receive watch type {} for path {}",type,path);
+//        switch (type){
+//            case NODE_CHANGED:
+//
+//                break;
+//            case NODE_CREATED:
+//                break;
+//            case NODE_DELETED:
+//                break;
+//            default:
+//                break;
+//        }
 
     }
 }

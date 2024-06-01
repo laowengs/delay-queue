@@ -42,3 +42,5 @@ spring:
           - data-id: zookeeper
             group: DEFAULT_GROUP
             refresh: true
+server:
+  port: 8002

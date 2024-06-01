@@ -56,27 +56,34 @@ public class KafkaAdminController {
         String delayTopic = topicInfo.getTopicName();// 加上延时时间，延时间隔，业务组
         NewTopic newTopic = new NewTopic(delayTopic,topicInfo.getNumPartitions(), topicInfo.getReplicationFactor());
         CreateTopicsResult createTopicsResult = adminClient.createTopics(Lists.newArrayList(newTopic));
-        curatorFramework.create().forPath("/delay-queue/"+delayTopic);
+        log.info(createTopicsResult.topicId(delayTopic).get().toString());
+        curatorFramework.create().creatingParentsIfNeeded().forPath("/delay_queue/"+delayTopic+"/is_consume","false".getBytes());
         return JsonResponse.getInstance();
     }
 
     @DeleteMapping("/topic")
-    public JsonResponse<Void> deleteTopic() {
-        DeleteTopicsResult deleteTopicsResult = adminClient.deleteTopics(Lists.newArrayList(""));
+    public JsonResponse<Void> deleteTopic(String topic) throws Exception {
+        DeleteTopicsResult deleteTopicsResult = adminClient.deleteTopics(Lists.newArrayList(topic));
+        curatorFramework.delete().forPath("/delay_queue/"+topic);
         return JsonResponse.getInstance();
     }
 
     @PostMapping("/consume/start/{topic}")
     public JsonResponse<Void> startConsumer(@PathVariable("topic") String topic) throws Exception {
         // 发送topic消费事件
-        curatorFramework.create().forPath("/delay-queue/"+topic+"/is_consume","true".getBytes());
+        if(curatorFramework.checkExists().forPath("/delay_queue/"+topic) == null){
+            curatorFramework.create().creatingParentsIfNeeded().forPath("/delay_queue/"+topic+"/is_consume","true".getBytes());
+        }else{
+            curatorFramework.setData().forPath("/delay_queue/"+topic+"/is_consume","true".getBytes());
+        }
+
         return JsonResponse.getInstance();
     }
 
     @PostMapping("/consume/stop/{topic}")
     public JsonResponse<Void> stopConsumer(@PathVariable("topic") String topic) throws Exception {
         //发送topic停止消费事件
-        curatorFramework.create().forPath("/delay-queue/"+topic+"/is_consume","false".getBytes());
+        curatorFramework.setData().forPath("/delay_queue/"+topic+"/is_consume","false".getBytes());
         return JsonResponse.getInstance();
     }
 }
