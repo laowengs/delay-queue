@@ -10,6 +10,7 @@
     <modules>
         <module>delay-queue-manager</module>
         <module>delay-queue-service</module>
+        <module>delay-queue-common</module>
     </modules>
     <packaging>pom</packaging>
 
