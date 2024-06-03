@@ -1,4 +1,4 @@
-package io.github.laowengs.delay.queue.service.config;
+package io.github.laowengs.delay.queue.common.config;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

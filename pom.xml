@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.laowengs</groupId>
-    <artifactId>kafka-delay-queue</artifactId>
+    <groupId>io.github.laowengs</groupId>
+    <artifactId>delay-queue</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>kafka-delay-queue</name>
-    <description>kafka-delay-queue</description>
+    <name>delay-queue</name>
+    <description>delay-queue</description>
     <modules>
         <module>delay-queue-manager</module>
         <module>delay-queue-service</module>
@@ -44,6 +44,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.github.laowengs</groupId>
+                <artifactId>delay-queue-common</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -184,6 +189,11 @@
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-core</artifactId>
                 <version>1.8.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>3.0.2</version>
             </dependency>
         </dependencies>
 

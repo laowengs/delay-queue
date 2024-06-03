@@ -1,6 +1,7 @@
 package io.github.laowengs.delay.queue.manager.controller;
 
 import com.google.common.collect.Lists;
+import io.github.laowengs.delay.queue.common.constants.DelayQueueConstants;
 import io.github.laowengs.delay.queue.manager.vo.JsonResponse;
 import io.github.laowengs.delay.queue.manager.ro.TopicInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -57,24 +58,24 @@ public class KafkaAdminController {
         NewTopic newTopic = new NewTopic(delayTopic,topicInfo.getNumPartitions(), topicInfo.getReplicationFactor());
         CreateTopicsResult createTopicsResult = adminClient.createTopics(Lists.newArrayList(newTopic));
         log.info(createTopicsResult.topicId(delayTopic).get().toString());
-        curatorFramework.create().creatingParentsIfNeeded().forPath("/delay_queue/"+delayTopic+"/is_consume","false".getBytes());
+        curatorFramework.create().creatingParentsIfNeeded().forPath(DelayQueueConstants.ROOT_PATH+"/" +delayTopic+"/is_consume","false".getBytes());
         return JsonResponse.getInstance();
     }
 
     @DeleteMapping("/topic")
     public JsonResponse<Void> deleteTopic(String topic) throws Exception {
         DeleteTopicsResult deleteTopicsResult = adminClient.deleteTopics(Lists.newArrayList(topic));
-        curatorFramework.delete().forPath("/delay_queue/"+topic);
+        curatorFramework.delete().forPath(DelayQueueConstants.ROOT_PATH+"/" +topic);
         return JsonResponse.getInstance();
     }
 
     @PostMapping("/consume/start/{topic}")
     public JsonResponse<Void> startConsumer(@PathVariable("topic") String topic) throws Exception {
         // 发送topic消费事件
-        if(curatorFramework.checkExists().forPath("/delay_queue/"+topic) == null){
-            curatorFramework.create().creatingParentsIfNeeded().forPath("/delay_queue/"+topic+"/is_consume","true".getBytes());
+        if(curatorFramework.checkExists().forPath(DelayQueueConstants.ROOT_PATH+"/"+topic) == null){
+            curatorFramework.create().creatingParentsIfNeeded().forPath(DelayQueueConstants.ROOT_PATH+"/"+topic+"/is_consume","true".getBytes());
         }else{
-            curatorFramework.setData().forPath("/delay_queue/"+topic+"/is_consume","true".getBytes());
+            curatorFramework.setData().forPath(DelayQueueConstants.ROOT_PATH+"/"+topic+"/is_consume","true".getBytes());
         }
 
         return JsonResponse.getInstance();
@@ -83,7 +84,7 @@ public class KafkaAdminController {
     @PostMapping("/consume/stop/{topic}")
     public JsonResponse<Void> stopConsumer(@PathVariable("topic") String topic) throws Exception {
         //发送topic停止消费事件
-        curatorFramework.setData().forPath("/delay_queue/"+topic+"/is_consume","false".getBytes());
+        curatorFramework.setData().forPath(DelayQueueConstants.ROOT_PATH+"/"+topic+"/is_consume","false".getBytes());
         return JsonResponse.getInstance();
     }
 }

@@ -1,4 +1,4 @@
-package io.github.laowengs.delay.queue.manager.config;
+package io.github.laowengs.delay.queue.common.config;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.KafkaAdminClient;

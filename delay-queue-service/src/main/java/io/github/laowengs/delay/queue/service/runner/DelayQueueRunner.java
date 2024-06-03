@@ -5,13 +5,11 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.CuratorCache;
 import org.apache.curator.framework.recipes.cache.CuratorCacheListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-
+import io.github.laowengs.delay.queue.common.constants.DelayQueueConstants;
 @Component
 @Slf4j
 public class DelayQueueRunner implements ApplicationRunner {
@@ -21,12 +19,12 @@ public class DelayQueueRunner implements ApplicationRunner {
     private CuratorCacheListener curatorCacheListener;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if(curatorFramework.checkExists().forPath("/delay_queue") == null){
+        if(curatorFramework.checkExists().forPath(DelayQueueConstants.ROOT_PATH) == null){
             log.info("delay_queue not exist, create it");
-            curatorFramework.create().creatingParentsIfNeeded().forPath("/delay_queue");
+            curatorFramework.create().creatingParentsIfNeeded().forPath(DelayQueueConstants.ROOT_PATH);
         }
 
-        CuratorCache curatorCache = CuratorCache.build(curatorFramework, "/delay_queue");
+        CuratorCache curatorCache = CuratorCache.build(curatorFramework, DelayQueueConstants.ROOT_PATH);
 
         // 创建一系列CuratorCache监听器，都是通过lambda表达式指定
         CuratorCacheListener listener = CuratorCacheListener.builder()

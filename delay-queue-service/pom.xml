@@ -2,14 +2,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.laowengs</groupId>
-        <artifactId>kafka-delay-queue</artifactId>
+        <groupId>io.github.laowengs</groupId>
+        <artifactId>delay-queue</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.laowengs</groupId>
     <artifactId>delay-queue-service</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>io.github.laowengs</groupId>
+            <artifactId>delay-queue-common</artifactId>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
